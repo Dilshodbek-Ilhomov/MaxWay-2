@@ -1,0 +1,372 @@
+{% load static i18n %}
+{% get_current_language as CURRENT_LANG %}
+<!DOCTYPE html>
+<html lang="{{ CURRENT_LANG }}">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#060510"/>
+  <title>Maxway — {% if CURRENT_LANG == 'uz' %}Tezkor Yetkazib Berish{% else %}Fast Delivery in Tashkent{% endif %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{% static 'assets/css/glass.css' %}"/>
+</head>
+<body>
+
+<div class="bg-canvas"></div>
+<div class="bg-blob bg-blob-1"></div>
+<div class="bg-blob bg-blob-2"></div>
+<div class="bg-blob bg-blob-3"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <div class="nav-logo"><a href="{% url 'shop_home' %}">
+        <svg width="52" height="55" viewBox="0 0 52 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M21.7069 22.7882C21.5535 17.3355 21.0296 12.6432 22.8452 7.34708C23.0941 6.27936 22.2932 5.68514 20.4424 5.56435C18.5883 5.64734 16.7356 7.53692 14.8847 11.2328C14.3464 12.237 14.0487 12.1964 13.9914 11.1111C14.4888 5.81938 14.7376 3.17346 14.7376 3.17346C14.6761 -0.140761 13.1843 -0.859045 10.2623 1.01852C8.58067 2.09902 7.46691 3.5192 6.28655 5.11882C3.68498 8.64472 1.89998 12.575 0.931799 16.9095C0.26551 19.8928 -0.673105 26.7431 0.723899 29.4765C1.55348 31.0993 5.02377 33.6504 6.30217 31.5445C6.54367 31.1203 6.51192 29.9628 6.41003 28.6801C6.10511 24.8405 5.95256 22.3586 6.62683 18.4354C7.09983 15.6841 7.88481 13.0675 8.98227 10.5858C9.42437 9.52302 10.9752 7.20227 10.7926 10.0514C10.7769 14.2211 11.0654 17.1007 11.6583 18.6899C12.2515 20.0301 12.9133 19.937 13.6437 18.4108C14.5159 15.9046 15.3978 13.7411 16.2891 11.9203C16.6604 11.2359 17.0627 10.5773 17.4963 9.94462C18.0474 9.0296 18.1945 9.32192 17.9373 10.8216C17.5783 13.1397 15.9879 23.8837 19.4545 24.3659C20.9603 24.3348 21.711 23.809 21.7069 22.7882Z" fill="#a50fa0"/>
+          <path d="M51.4855 28.6927L49.8106 27.1941C45.8064 24.1903 38.7835 25.0798 32.2675 26.9253C27.1736 28.3684 23.7941 30.6465 20.3917 31.8687C18.8951 32.3534 17.0192 32.0711 16.5261 30.6112C16.1058 29.3672 16.3209 28.3995 17.7664 27.4453C22.9105 24.0466 50.2582 17.2327 51.4855 28.6927Z" fill="#F1B301"/>
+        </svg>
+      </a></div>
+      <div class="nav-links">
+        <a href="#">{% trans "Menu" %}</a>
+        <a href="#">{% trans "For Kids" %}</a>
+        <a href="#">{% trans "Branches" %}</a>
+        <a href="tel:998712005400" class="nav-phone">(+99871) 200-54-00</a>
+      </div>
+      <div class="nav-right">
+        <!-- Language Switcher -->
+        <form action="{% url 'set_language' %}" method="post" style="display:flex;">
+          {% csrf_token %}
+          <input name="next" type="hidden" value="{{ request.path }}"/>
+          {% if CURRENT_LANG == 'uz' %}
+            <button type="submit" name="language" value="en" class="lang-btn" title="Switch to English">
+              <span class="lang-flag">🇺🇸</span><span class="lang-label">EN</span>
+            </button>
+          {% else %}
+            <button type="submit" name="language" value="uz" class="lang-btn" title="O'zbekchaga o'tish">
+              <span class="lang-flag">🇺🇿</span><span class="lang-label">UZ</span>
+            </button>
+          {% endif %}
+        </form>
+        <button class="nav-cart-btn" onclick="openCart()">
+          <svg width="20" height="22" viewBox="0 0 18 21" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 7V5C4 2.23858 6.23858 0 9 0C11.7614 0 14 2.23858 14 5V7H17C17.5523 7 18 7.44772 18 8V20C18 20.5523 17.5523 21 17 21H1C0.447715 21 0 20.5523 0 20V8C0 7.44772 0.447715 7 1 7H4ZM4 9H2V19H16V9H14V11H12V9H6V11H4V9ZM12 5V7H6V5C6 3.34315 7.34315 2 9 2C10.6569 2 12 3.34315 12 5Z" fill="#F1B301"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <div class="nav-burger" id="navBurger" onclick="toggleMobileMenu()">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="toggleMobileMenu()">{% trans "Menu" %}</a>
+  <a href="#" onclick="toggleMobileMenu()">{% trans "For Kids" %}</a>
+  <a href="#" onclick="toggleMobileMenu()">{% trans "Branches" %}</a>
+  <a href="tel:998712005400" style="color:var(--gold)">(+99871) 200-54-00</a>
+  <form action="{% url 'set_language' %}" method="post" style="margin-top:16px;">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ request.path }}"/>
+    {% if CURRENT_LANG == 'uz' %}
+      <button type="submit" name="language" value="en" class="lang-btn-mobile">🇺🇸 English</button>
+    {% else %}
+      <button type="submit" name="language" value="uz" class="lang-btn-mobile">🇺🇿 O'zbekcha</button>
+    {% endif %}
+  </form>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-badge">🔥 {% trans "#1 Delivery in Tashkent" %}</div>
+        <h1 class="hero-title">
+          {% trans "Delicious" %}<br>
+          <span class="accent-brand">{% trans "Flavors" %}</span><br>
+          <span class="accent">{% trans "To Your Door" %}</span>
+        </h1>
+        <p class="hero-subtitle">{% trans "Freshly baked pizzas, burgers and combo sets — delivered in 30 minutes. No cold food!" %}</p>
+        <div class="hero-cta">
+          <button class="btn-primary" onclick="document.querySelector('.menu-section').scrollIntoView({behavior:'smooth'})">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="white"/></svg>
+            {% trans "Order Now" %}
+          </button>
+          <a href="tel:998712005400" class="btn-glass">{% trans "Call Us" %}</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item"><span class="stat-num">30+</span><span class="stat-label">{% trans "Branches stat" %}</span></div>
+          <div class="stat-item"><span class="stat-num">50K+</span><span class="stat-label">{% trans "Orders stat" %}</span></div>
+          <div class="stat-item"><span class="stat-num">4.9★</span><span class="stat-label">{% trans "Rating" %}</span></div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="hero-image-ring"></div>
+        <div class="hero-image-ring"></div>
+        <img src="{% static 'assets/img/big__img.png' %}" alt="Maxway Food"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2 class="section-title">{% trans "Our Menu" %}</h2>
+    </div>
+    <div class="filter-tabs reveal reveal-delay-1" id="filterTabs">
+      <button class="active" data-id="all">{% trans "All" %}</button>
+      {% for cat in categories %}
+      <button data-id="{{ cat.slug }}">{{ cat.emoji }} {{ cat.name }}</button>
+      {% endfor %}
+    </div>
+    {% for cat in categories %}
+    <div class="cat-title reveal" data-cat="{{ cat.slug }}">{{ cat.name }}</div>
+    <div class="cards-grid slide reveal reveal-delay-1" data-cat="{{ cat.slug }}">
+      {% for product in products %}
+        {% if product.category == cat %}
+        <div class="food-card"
+             data-id="{{ product.pk }}"
+             data-name="{{ product.name }}"
+             data-price="{{ product.price }}"
+             data-img="{% if product.image %}{{ product.image.url }}{% else %}{% static 'assets/img/burger.png' %}{% endif %}">
+          <div class="food-card-img-wrap">
+            {% if product.image %}
+              <img class="img" src="{{ product.image.url }}" alt="{{ product.name }}"/>
+            {% else %}
+              <img class="img" src="{% static 'assets/img/burger.png' %}" alt="{{ product.name }}"/>
+            {% endif %}
+            {% if product.is_hot %}<div class="badge-hot">🔥</div>{% endif %}
+          </div>
+          <div class="food-card-body">
+            <div class="food-card-title">{{ product.name }}</div>
+            <div class="food-card-desc">{{ product.descriptions }}</div>
+            <div class="food-card-footer">
+              <span class="food-card-price">{{ product.price|floatformat:0 }} UZS</span>
+              <button class="food-card-add box__btn" onclick="addToCart(this)">
+                <img src="{% static 'assets/img/plus.png' %}" alt="+"/>
+              </button>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% empty %}
+    <div style="text-align:center;padding:60px 20px;color:rgba(255,255,255,0.4)">
+      <p style="font-size:48px">🍽️</p>
+      <p>{% if CURRENT_LANG == 'uz' %}Hali mahsulotlar qo'shilmagan.{% else %}No products added yet.{% endif %}</p>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- APP SECTION -->
+<section style="padding:0 0 60px">
+  <div class="container">
+    <div class="app-section reveal">
+      <div class="app-inner container" style="padding:60px 40px">
+        <div class="app-text">
+          <h2 class="app-title">{% trans "Even Easier with the Mobile App!" %}<br><span style="color:var(--gold)">{% if CURRENT_LANG == 'uz' %}yanada osonroq!{% else %}even easier!{% endif %}</span></h2>
+          <p class="app-desc">{% trans "Download our app and order anytime. Exclusive discounts only through the app!" %}</p>
+          <div class="app-buttons">
+            <a href="#" class="app-store-btn">
+              <img src="{% static 'assets/img/apple.png' %}" alt="App Store" style="width:28px;height:28px;object-fit:contain;filter:brightness(10)"/>
+              <div class="app-store-text">
+                <span class="app-store-label">{% trans "Download on the" %}</span>
+                <span class="app-store-name">{% trans "App Store" %}</span>
+              </div>
+            </a>
+            <a href="#" class="app-store-btn">
+              <img src="{% static 'assets/img/googleplay.png' %}" alt="Google Play" style="width:28px;height:28px;object-fit:contain"/>
+              <div class="app-store-text">
+                <span class="app-store-label">{% trans "Get it on" %}</span>
+                <span class="app-store-name">{% trans "Google Play" %}</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="app-phone-wrap"><img src="{% static 'assets/img/big__phone.png' %}" alt="Maxway App"/></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <svg width="52" height="55" viewBox="0 0 52 55" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M21.7069 22.7882C21.5535 17.3355 21.0296 12.6432 22.8452 7.34708C23.0941 6.27936 22.2932 5.68514 20.4424 5.56435C18.5883 5.64734 16.7356 7.53692 14.8847 11.2328C14.3464 12.237 14.0487 12.1964 13.9914 11.1111C14.4888 5.81938 14.7376 3.17346 14.7376 3.17346C14.6761 -0.140761 13.1843 -0.859045 10.2623 1.01852C8.58067 2.09902 7.46691 3.5192 6.28655 5.11882C3.68498 8.64472 1.89998 12.575 0.931799 16.9095C0.26551 19.8928 -0.673105 26.7431 0.723899 29.4765C1.55348 31.0993 5.02377 33.6504 6.30217 31.5445C6.54367 31.1203 6.51192 29.9628 6.41003 28.6801C6.10511 24.8405 5.95256 22.3586 6.62683 18.4354C7.09983 15.6841 7.88481 13.0675 8.98227 10.5858C9.42437 9.52302 10.9752 7.20227 10.7926 10.0514C10.7769 14.2211 11.0654 17.1007 11.6583 18.6899C12.2515 20.0301 12.9133 19.937 13.6437 18.4108C14.5159 15.9046 15.3978 13.7411 16.2891 11.9203C16.6604 11.2359 17.0627 10.5773 17.4963 9.94462C18.0474 9.0296 18.1945 9.32192 17.9373 10.8216C17.5783 13.1397 15.9879 23.8837 19.4545 24.3659C20.9603 24.3348 21.711 23.809 21.7069 22.7882Z" fill="#a50fa0"/>
+            <path d="M51.4855 28.6927L49.8106 27.1941C45.8064 24.1903 38.7835 25.0798 32.2675 26.9253C27.1736 28.3684 23.7941 30.6465 20.3917 31.8687C18.8951 32.3534 17.0192 32.0711 16.5261 30.6112C16.1058 29.3672 16.3209 28.3995 17.7664 27.4453C22.9105 24.0466 50.2582 17.2327 51.4855 28.6927Z" fill="#F1B301"/>
+          </svg>
+        </div>
+        <p>{% trans "The best pizza and burger delivery service in Tashkent." %}</p>
+      </div>
+      <div class="footer-col">
+        <h4>{% trans "Menu" %}</h4>
+        <ul>
+          <li><a href="#">{% trans "Pizza" %}</a></li>
+          <li><a href="#">{% trans "Burger" %}</a></li>
+          <li><a href="#">{% trans "Combo" %}</a></li>
+          <li><a href="#">{% trans "Drinks" %}</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>{% trans "Company" %}</h4>
+        <ul>
+          <li><a href="#">{% trans "About Us" %}</a></li>
+          <li><a href="#">{% trans "Branches" %}</a></li>
+          <li><a href="#">{% trans "Careers" %}</a></li>
+          <li><a href="#">{% trans "News" %}</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact footer-col">
+        <h4>{% trans "Contact" %}</h4>
+        <div class="contact-item"><div class="contact-icon">📞</div><span>(+99871) 200-54-00</span></div>
+        <div class="contact-item"><div class="contact-icon">📍</div><span>{% trans "Address" %}</span></div>
+        <div class="contact-item"><div class="contact-icon">🕐</div><span>{% trans "Working hours" %}</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-bottom-text">© Maxway, 2026 — {% trans "All rights reserved" %}</span>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h2 class="cart-title">{% trans "Cart" %}</h2>
+    <button class="cart-close-btn" onclick="closeCart()"><span></span></button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty" id="cartEmpty">
+      <span style="font-size:48px">🛒</span>
+      <span>{% trans "Cart is empty" %}</span>
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span class="cart-total-label">{% trans "Total:" %}</span>
+      <span class="cart-total-amount" id="cartTotal">0 UZS</span>
+    </div>
+    <div class="cart-actions">
+      <button class="btn-clear" onclick="clearCart()">{% trans "Clear" %}</button>
+      <a class="btn-order-link" href="{% url 'shop_order' %}">{% trans "Place Order →" %}</a>
+    </div>
+  </div>
+</div>
+
+<!-- SCROLL TO TOP -->
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<!-- TOAST NOTIFICATION -->
+<div class="mw-toast" id="mwToast">
+  <span class="mw-toast-icon">✓</span>
+  <span id="mwToastText">Savatga qo'shildi!</span>
+</div>
+
+<button class="float-cart" onclick="openCart()" id="floatCart" style="display:none">
+  <svg width="24" height="26" viewBox="0 0 18 21" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 7V5C4 2.23858 6.23858 0 9 0C11.7614 0 14 2.23858 14 5V7H17C17.5523 7 18 7.44772 18 8V20C18 20.5523 17.5523 21 17 21H1C0.447715 21 0 20.5523 0 20V8C0 7.44772 0.447715 7 1 7H4ZM4 9H2V19H16V9H14V11H12V9H6V11H4V9ZM12 5V7H6V5C6 3.34315 7.34315 2 9 2C10.6569 2 12 3.34315 12 5Z" fill="#F1B301"/></svg>
+  <span class="float-cart-count" id="floatCartCount">0</span>
+</button>
+
+<script>
+let cart = JSON.parse(localStorage.getItem('maxway_cart') || '[]');
+function saveCart() { localStorage.setItem('maxway_cart', JSON.stringify(cart)); }
+function fmt(p) { return p.toLocaleString('uz-UZ') + ' UZS'; }
+
+let _toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('mwToast');
+  const txt = document.getElementById('mwToastText');
+  if (!t) return;
+  txt.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+function addToCart(btn) {
+  const card = btn.closest('.food-card');
+  const id = card.dataset.id, name = card.dataset.name, price = parseInt(card.dataset.price), img = card.dataset.img;
+  const ex = cart.find(i => i.id === id);
+  if (ex) ex.qty++; else cart.push({ id, name, price, img, qty: 1 });
+  saveCart(); renderCart();
+  btn.style.transform = 'scale(1.3) rotate(90deg)';
+  setTimeout(() => btn.style.transform = '', 300);
+  card.style.borderColor = 'rgba(241,179,1,0.6)';
+  card.style.boxShadow = '0 0 30px rgba(241,179,1,0.25)';
+  setTimeout(() => { card.style.borderColor = ''; card.style.boxShadow = ''; }, 600);
+  showToast(name + " savatga qo'shildi!");
+}
+
+function renderCart() {
+  const itemsEl = document.getElementById('cartItems');
+  const emptyEl = document.getElementById('cartEmpty');
+  const totalEl = document.getElementById('cartTotal');
+  const countEl = document.getElementById('cartCount');
+  const fcEl = document.getElementById('floatCartCount');
+  const fc = document.getElementById('floatCart');
+  const qty = cart.reduce((s, i) => s + i.qty, 0);
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  countEl.textContent = qty;
+  countEl.style.display = qty > 0 ? 'flex' : 'none';
+  fcEl.textContent = qty;
+  fc.style.display = qty > 0 ? 'flex' : 'none';
+  totalEl.textContent = fmt(total);
+  itemsEl.querySelectorAll('.cart-item').forEach(el => el.remove());
+  if (!cart.length) { emptyEl.style.display = 'flex'; return; }
+  emptyEl.style.display = 'none';
+  cart.forEach((item, idx) => {
+    const d = document.createElement('div');
+    d.className = 'cart-item';
+    d.innerHTML = `<img src="${item.img}" alt="${item.name}"/><div class="cart-item-info"><div class="cart-item-name">${item.name} × ${item.qty}</div><div class="cart-item-price">${fmt(item.price * item.qty)}</div></div><button class="cart-item-remove" onclick="removeFromCart(${idx})">✕</button>`;
+    itemsEl.insertBefore(d, emptyEl);
+  });
+}
+
+function removeFromCart(idx) { cart.splice(idx, 1); saveCart(); renderCart(); }
+function clearCart() { cart = []; saveCart(); renderCart(); }
+function openCart() { document.getElementById('cartDrawer').classList.add('open'); document.getElementById('cartOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeCart() { document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+function toggleMobileMenu() {
+  const m = document.getElementById('mobileMenu'), b = document.getElementById('navBurger');
+  m.classList.toggle('open'); b.classList.toggle('open');
+  document.body.style.overflow = m.classList.contains('open') ? 'hidden' : '';
+}
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+  const st = document.getElementById('scrollTop');
+  if (st) st.classList.toggle('visible', window.scrollY > 400);
+}, { passive: true });
+document.querySelectorAll('.filter-tabs button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelector('.filter-tabs button.active').classList.remove('active');
+    btn.classList.add('active');
+    const id = btn.dataset.id;
+    document.querySelectorAll('[data-cat]').forEach(el => {
+      el.style.display = (id === 'all' || el.dataset.cat === id) ? '' : 'none';
+    });
+  });
+});
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+renderCart();
+</script>
+</body>
+</html>

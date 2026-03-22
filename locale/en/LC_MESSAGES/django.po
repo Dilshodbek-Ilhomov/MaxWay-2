@@ -1,0 +1,269 @@
+# English translations for Maxway
+# Copyright (C) 2026 Maxway
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en\n"
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid "For Kids"
+msgstr "For Kids"
+
+msgid "Branches"
+msgstr "Branches"
+
+msgid "Cart"
+msgstr "Cart 🛒"
+
+msgid "#1 Delivery in Tashkent"
+msgstr "#1 Delivery in Tashkent"
+
+msgid "Delicious"
+msgstr "Delicious"
+
+msgid "Flavors"
+msgstr "Flavors"
+
+msgid "To Your Door"
+msgstr "To Your Door"
+
+msgid "Freshly baked pizzas, burgers and combo sets — delivered in 30 minutes. No cold food!"
+msgstr "Freshly baked pizzas, burgers and combo sets — delivered in 30 minutes. No cold food!"
+
+msgid "Order Now"
+msgstr "Order Now"
+
+msgid "Call Us"
+msgstr "📞 Call Us"
+
+msgid "Branches stat"
+msgstr "Branches"
+
+msgid "Orders stat"
+msgstr "Orders"
+
+msgid "Rating"
+msgstr "Rating"
+
+msgid "Our Menu"
+msgstr "Our Menu"
+
+msgid "All"
+msgstr "🍽️ All"
+
+msgid "Even Easier with the Mobile App!"
+msgstr "Even Easier with the Mobile App!"
+
+msgid "Download our app and order anytime. Exclusive discounts only through the app!"
+msgstr "Download our app and order anytime. Exclusive discounts only through the app!"
+
+msgid "Download on the"
+msgstr "Download on the"
+
+msgid "App Store"
+msgstr "App Store"
+
+msgid "Get it on"
+msgstr "Get it on"
+
+msgid "Google Play"
+msgstr "Google Play"
+
+msgid "The best pizza and burger delivery service in Tashkent."
+msgstr "The best pizza and burger delivery service in Tashkent."
+
+msgid "Pizza"
+msgstr "Pizza"
+
+msgid "Burger"
+msgstr "Burger"
+
+msgid "Combo"
+msgstr "Combo"
+
+msgid "Drinks"
+msgstr "Drinks"
+
+msgid "Company"
+msgstr "Company"
+
+msgid "About Us"
+msgstr "About Us"
+
+msgid "Careers"
+msgstr "Careers"
+
+msgid "News"
+msgstr "News"
+
+msgid "Contact"
+msgstr "Contact"
+
+msgid "Working hours"
+msgstr "10:00 — 23:00"
+
+msgid "Address"
+msgstr "100011, Tashkent, Zarqaynar str., 3B"
+
+msgid "All rights reserved"
+msgstr "All rights reserved"
+
+msgid "Cart is empty"
+msgstr "Cart is empty"
+
+msgid "Total:"
+msgstr "Total:"
+
+msgid "Clear"
+msgstr "Clear"
+
+msgid "Place Order →"
+msgstr "Place Order →"
+
+msgid "Place an Order"
+msgstr "Place an Order"
+
+msgid "Fill in your details — we'll deliver in 30 minutes 🚀"
+msgstr "Fill in your details — we'll deliver in 30 minutes 🚀"
+
+msgid "Personal Information"
+msgstr "📋 Personal Information"
+
+msgid "First Name"
+msgstr "First Name"
+
+msgid "First Name placeholder"
+msgstr "e.g. John"
+
+msgid "Last Name"
+msgstr "Last Name"
+
+msgid "Last Name placeholder"
+msgstr "e.g. Smith"
+
+msgid "Phone Number"
+msgstr "Phone Number"
+
+msgid "Delivery Address"
+msgstr "📍 Delivery Address"
+
+msgid "Street"
+msgstr "Street Name"
+
+msgid "Street placeholder"
+msgstr "Street, house number"
+
+msgid "Apartment"
+msgstr "Apartment"
+
+msgid "Apartment placeholder"
+msgstr "Apartment No."
+
+msgid "Comment / Landmark"
+msgstr "Comment / Landmark"
+
+msgid "Comment placeholder"
+msgstr "e.g. Green door, 3rd floor, left side..."
+
+msgid "Payment Method"
+msgstr "💳 Payment Method"
+
+msgid "Cash"
+msgstr "Cash"
+
+msgid "Cash description"
+msgstr "Pay in UZS when the courier arrives"
+
+msgid "Terminal (UzCard)"
+msgstr "Card Terminal (UzCard)"
+
+msgid "Card description"
+msgstr "Pay by card — UzCard, Humo, Visa"
+
+msgid "Online Payment"
+msgstr "Online Payment"
+
+msgid "Online description"
+msgstr "Via Click or Payme — fast and secure"
+
+msgid "Promo Code"
+msgstr "🎟️ Promo Code"
+
+msgid "Discount Code"
+msgstr "Discount Code"
+
+msgid "Promo placeholder"
+msgstr "e.g. MAXWAY20"
+
+msgid "Apply"
+msgstr "Apply"
+
+msgid "Checking..."
+msgstr "⏳ Checking..."
+
+msgid "Promo applied"
+msgstr "✅ Promo code accepted!"
+
+msgid "discount given"
+msgstr "discount applied."
+
+msgid "Invalid promo code"
+msgstr "❌ Invalid or expired promo code."
+
+msgid "Error occurred"
+msgstr "❌ An error occurred. Please try again."
+
+msgid "Order Summary"
+msgstr "Order Summary"
+
+msgid "Products:"
+msgstr "Items:"
+
+msgid "Delivery:"
+msgstr "Delivery:"
+
+msgid "Free ✓"
+msgstr "Free ✓"
+
+msgid "Discount:"
+msgstr "Discount:"
+
+msgid "Grand Total:"
+msgstr "Grand Total:"
+
+msgid "Submit Order"
+msgstr "🚀 Submit Order"
+
+msgid "Operator will contact you after ordering"
+msgstr "An operator will contact you to confirm the order"
+
+msgid "Back to Menu"
+msgstr "← Back to Menu"
+
+msgid "Order Received!"
+msgstr "Order Received!"
+
+msgid "Thank you! Your order has been successfully received. An operator will contact you soon."
+msgstr "Thank you! Your order has been successfully received. An operator will contact you soon."
+
+msgid "Operator will call you to confirm the order"
+msgstr "An operator will call you to confirm the order"
+
+msgid "Chef will start preparing your food 👨‍🍳"
+msgstr "The chef will start preparing your food 👨‍🍳"
+
+msgid "Courier will deliver in 30 minutes 🚀"
+msgstr "Courier will deliver within 30 minutes 🚀"
+
+msgid "Order number:"
+msgstr "Order number:"
+
+msgid "O'zbekcha"
+msgstr "O'zbekcha"
+
+msgid "English"
+msgstr "English"
+

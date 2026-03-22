@@ -1,0 +1,48 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="LossyEncoding" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="psycopg2" />
+          <option value="main" />
+          <option value="appdirs" />
+          <option value="asgiref" />
+          <option value="certifi" />
+          <option value="distlib" />
+          <option value="Django" />
+          <option value="django-mathfilters" />
+          <option value="filelock" />
+          <option value="pipenv" />
+          <option value="platformdirs" />
+          <option value="psycopg2-binary" />
+          <option value="pytz" />
+          <option value="six" />
+          <option value="sqlparse" />
+          <option value="typing-extensions" />
+          <option value="tzdata" />
+          <option value="virtualenv" />
+          <option value="virtualenv-clone" />
+          <option value="zipp" />
+          <option value="gunicorn" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8Inspection" enabled="true" level="INFORMATION" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="E302" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="core.core.urls.main" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="XmlInvalidId" enabled="false" level="ERROR" enabled_by_default="false" />
+  </profile>
+</component>

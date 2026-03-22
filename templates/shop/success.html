@@ -1,0 +1,123 @@
+{% load static i18n %}
+{% get_current_language as CURRENT_LANG %}
+<!DOCTYPE html>
+<html lang="{{ CURRENT_LANG }}">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#04030D"/>
+  <title>{% trans "Order Received!" %} — Maxway</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{% static 'assets/css/glass.css' %}"/>
+</head>
+<body>
+
+<div class="bg-canvas"></div>
+<div class="bg-blob bg-blob-1"></div>
+<div class="bg-blob bg-blob-2"></div>
+<div class="bg-blob bg-blob-3"></div>
+
+<!-- Confetti Canvas -->
+<canvas id="confetti" style="position:fixed;inset:0;z-index:1;pointer-events:none;width:100%;height:100%;"></canvas>
+
+<div class="success-wrap" style="position:relative;z-index:2;">
+  <div class="success-card">
+
+    <div class="success-icon">✓</div>
+
+    <h1 class="success-title">{% trans "Order Received!" %}</h1>
+    <p class="success-subtitle">
+      {% trans "Thank you! Your order has been successfully received. An operator will contact you soon." %}
+    </p>
+
+    <!-- Order ID pill -->
+    {% if order_id %}
+    <div style="display:inline-flex;align-items:center;gap:8px;padding:9px 20px;background:rgba(241,179,1,0.10);border:1px solid rgba(241,179,1,0.28);border-radius:999px;font-size:13px;font-weight:700;color:#F1B301;letter-spacing:0.02em;margin-bottom:32px;backdrop-filter:blur(12px);">
+      <span style="opacity:0.6;">{% trans "Order number:" %}</span>
+      <span>#{{ order_id }}</span>
+    </div>
+    {% else %}
+    <div style="margin-bottom:32px;"></div>
+    {% endif %}
+
+    <div class="success-steps">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-text">{% trans "Operator will call you to confirm the order" %}</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-text">{% trans "Chef will start preparing your food 👨‍🍳" %}</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-text">{% trans "Courier will deliver in 30 minutes 🚀" %}</div>
+      </div>
+    </div>
+
+    <!-- Delivery timer pill -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;padding:14px 24px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.10);border-radius:18px;margin-bottom:30px;font-size:14px;color:rgba(255,255,255,0.6);">
+      <span style="font-size:20px;">🕐</span>
+      {% if CURRENT_LANG == 'uz' %}
+        Taxminiy yetkazib berish vaqti: <strong style="color:#fff;margin-left:4px;">30 daqiqa</strong>
+      {% else %}
+        Estimated delivery time: <strong style="color:#fff;margin-left:4px;">30 minutes</strong>
+      {% endif %}
+    </div>
+
+    <a href="{% url 'shop_home' %}" class="btn-home">{% trans "Back to Menu" %}</a>
+
+  </div>
+</div>
+
+<script>
+/* Confetti */
+(function(){
+  var c=document.getElementById('confetti');
+  if(!c)return;
+  var ctx=c.getContext('2d');
+  c.width=window.innerWidth; c.height=window.innerHeight;
+  var pieces=[];
+  var colors=['#7B0FD4','#A020C8','#C040E8','#F1B301','#FFD45E','#fff','#5af59b'];
+  for(var i=0;i<90;i++){
+    pieces.push({
+      x:Math.random()*c.width,
+      y:Math.random()*c.height-c.height,
+      r:Math.random()*6+3,
+      d:Math.random()*pieces.length,
+      color:colors[Math.floor(Math.random()*colors.length)],
+      tilt:Math.floor(Math.random()*10)-10,
+      tiltAngle:0,
+      tiltAngleInc:Math.random()*.07+.05
+    });
+  }
+  var angle=0,tick=0;
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    angle+=.01; tick++;
+    for(var i=0;i<pieces.length;i++){
+      var p=pieces[i];
+      p.tiltAngle+=p.tiltAngleInc;
+      p.y+=Math.cos(angle+p.d)+1+p.r/2;
+      p.x+=Math.sin(angle)*1.5;
+      p.tilt=Math.sin(p.tiltAngle)*12;
+      ctx.beginPath();
+      ctx.lineWidth=p.r/2;
+      ctx.strokeStyle=p.color;
+      ctx.globalAlpha=tick<120?tick/120:Math.max(0,1-(tick-350)/200);
+      ctx.moveTo(p.x+p.tilt+p.r/3,p.y);
+      ctx.lineTo(p.x+p.tilt,p.y+p.tilt+p.r/5);
+      ctx.stroke();
+      if(p.y>c.height){p.y=-10;p.x=Math.random()*c.width;}
+    }
+    if(tick<550)requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,c.width,c.height);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>

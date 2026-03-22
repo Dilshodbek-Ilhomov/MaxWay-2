@@ -1,0 +1,361 @@
+{% load static i18n %}
+{% get_current_language as CURRENT_LANG %}
+<!DOCTYPE html>
+<html lang="{{ CURRENT_LANG }}">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#04030D"/>
+  <title>Maxway — {% trans "Place an Order" %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{% static 'assets/css/glass.css' %}"/>
+  <style>
+    .form-group input:valid:not(:placeholder-shown),
+    .form-group textarea:valid:not(:placeholder-shown) {
+      border-color: rgba(52,199,89,0.45) !important;
+      background: rgba(52,199,89,0.05) !important;
+    }
+    .form-group input:invalid:not(:placeholder-shown) {
+      border-color: rgba(255,70,70,0.45) !important;
+    }
+    .step-progress {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; margin-bottom: 48px;
+    }
+    .step-pill {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 18px; border-radius: 999px; font-size: 13px;
+      font-weight: 700; font-family: 'Outfit', sans-serif;
+      letter-spacing: -0.01em;
+    }
+    .step-pill.active {
+      background: linear-gradient(135deg, rgba(123,15,212,0.25), rgba(160,32,200,0.20));
+      border: 1px solid rgba(160,32,200,0.40); color: #C040E8;
+    }
+    .step-pill.done {
+      color: rgba(255,255,255,0.40); background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .step-pill-num {
+      width: 22px; height: 22px; border-radius: 50%; font-size: 12px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .step-pill.active .step-pill-num {
+      background: linear-gradient(135deg, #7B0FD4, #A020C8); color: #fff;
+    }
+    .step-pill.done .step-pill-num {
+      background: rgba(255,255,255,0.10); color: rgba(255,255,255,0.35);
+    }
+    .step-connector { width: 32px; height: 1px; background: rgba(255,255,255,0.10); }
+    @media(max-width:480px){
+      .step-progress { gap: 0; }
+      .step-pill { padding: 7px 12px; font-size: 12px; }
+      .step-connector { width: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-canvas"></div>
+<div class="bg-blob bg-blob-1"></div>
+<div class="bg-blob bg-blob-2"></div>
+<div class="bg-blob bg-blob-3"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar scrolled" id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <div class="nav-logo"><a href="{% url 'shop_home' %}">
+        <svg width="52" height="55" viewBox="0 0 52 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M21.7069 22.7882C21.5535 17.3355 21.0296 12.6432 22.8452 7.34708C23.0941 6.27936 22.2932 5.68514 20.4424 5.56435C18.5883 5.64734 16.7356 7.53692 14.8847 11.2328C14.3464 12.237 14.0487 12.1964 13.9914 11.1111C14.4888 5.81938 14.7376 3.17346 14.7376 3.17346C14.6761 -0.140761 13.1843 -0.859045 10.2623 1.01852C8.58067 2.09902 7.46691 3.5192 6.28655 5.11882C3.68498 8.64472 1.89998 12.575 0.931799 16.9095C0.26551 19.8928 -0.673105 26.7431 0.723899 29.4765C1.55348 31.0993 5.02377 33.6504 6.30217 31.5445C6.54367 31.1203 6.51192 29.9628 6.41003 28.6801C6.10511 24.8405 5.95256 22.3586 6.62683 18.4354C7.09983 15.6841 7.88481 13.0675 8.98227 10.5858C9.42437 9.52302 10.9752 7.20227 10.7926 10.0514C10.7769 14.2211 11.0654 17.1007 11.6583 18.6899C12.2515 20.0301 12.9133 19.937 13.6437 18.4108C14.5159 15.9046 15.3978 13.7411 16.2891 11.9203C16.6604 11.2359 17.0627 10.5773 17.4963 9.94462C18.0474 9.0296 18.1945 9.32192 17.9373 10.8216C17.5783 13.1397 15.9879 23.8837 19.4545 24.3659C20.9603 24.3348 21.711 23.809 21.7069 22.7882Z" fill="#a50fa0"/>
+          <path d="M51.4855 28.6927L49.8106 27.1941C45.8064 24.1903 38.7835 25.0798 32.2675 26.9253C27.1736 28.3684 23.7941 30.6465 20.3917 31.8687C18.8951 32.3534 17.0192 32.0711 16.5261 30.6112C16.1058 29.3672 16.3209 28.3995 17.7664 27.4453C22.9105 24.0466 50.2582 17.2327 51.4855 28.6927Z" fill="#F1B301"/>
+        </svg>
+      </a></div>
+      <div class="nav-links">
+        <a href="{% url 'shop_home' %}">{% trans "Back to Menu" %}</a>
+        <a href="tel:998712005400" class="nav-phone">(+99871) 200-54-00</a>
+      </div>
+      <div class="nav-right">
+        <form action="{% url 'set_language' %}" method="post" style="display:flex;">
+          {% csrf_token %}
+          <input name="next" type="hidden" value="{{ request.path }}"/>
+          {% if CURRENT_LANG == 'uz' %}
+            <button type="submit" name="language" value="en" class="lang-btn" title="Switch to English">
+              <span class="lang-flag">🇺🇸</span><span class="lang-label">EN</span>
+            </button>
+          {% else %}
+            <button type="submit" name="language" value="uz" class="lang-btn" title="O'zbekchaga o'tish">
+              <span class="lang-flag">🇺🇿</span><span class="lang-label">UZ</span>
+            </button>
+          {% endif %}
+        </form>
+        <div class="nav-burger" id="navBurger" onclick="toggleMobileMenu()">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="{% url 'shop_home' %}" onclick="toggleMobileMenu()">{% trans "Back to Menu" %}</a>
+  <a href="tel:998712005400" style="color:var(--gold)">(+99871) 200-54-00</a>
+  <form action="{% url 'set_language' %}" method="post" style="margin-top:16px;">
+    {% csrf_token %}
+    <input name="next" type="hidden" value="{{ request.path }}"/>
+    {% if CURRENT_LANG == 'uz' %}
+      <button type="submit" name="language" value="en" class="lang-btn-mobile">🇺🇸 English</button>
+    {% else %}
+      <button type="submit" name="language" value="uz" class="lang-btn-mobile">🇺🇿 O'zbekcha</button>
+    {% endif %}
+  </form>
+</div>
+
+<!-- ORDER PAGE -->
+<div class="order-page">
+  <div class="container">
+    <div class="reveal">
+      <div class="step-progress">
+        <div class="step-pill done">
+          <span class="step-pill-num">1</span>
+          <span>{% trans "Menu" %}</span>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-pill active">
+          <span class="step-pill-num">2</span>
+          <span>{% trans "Order" %}</span>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-pill done">
+          <span class="step-pill-num">3</span>
+          <span>{% trans "Delivery" %}</span>
+        </div>
+      </div>
+      <h1 class="order-page-title">{% trans "Place an Order" %}</h1>
+      <p class="order-page-subtitle">{% trans "Fill in your details — we'll deliver in 30 minutes 🚀" %}</p>
+    </div>
+
+    <div class="order-grid">
+      <!-- LEFT: Form -->
+      <div class="order-form-section">
+        <form method="POST" action="{% url 'shop_order' %}" id="orderForm">
+          {% csrf_token %}
+          <input type="hidden" name="cart" id="cartData" value="[]"/>
+
+          <!-- Personal Info -->
+          <div class="order-card reveal">
+            <div class="order-card-title">{% trans "Personal Information" %}</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>{% trans "First Name" %}</label>
+                <input type="text" name="first_name" placeholder="{% trans "First Name placeholder" %}" required/>
+              </div>
+              <div class="form-group">
+                <label>{% trans "Last Name" %}</label>
+                <input type="text" name="last_name" placeholder="{% trans "Last Name placeholder" %}" required/>
+              </div>
+            </div>
+            <div class="form-group" style="margin-top:16px">
+              <label>{% trans "Phone Number" %}</label>
+              <input type="tel" name="phone" placeholder="+998 90 123 45 67" required/>
+            </div>
+          </div>
+
+          <!-- Address -->
+          <div class="order-card reveal reveal-delay-1">
+            <div class="order-card-title">{% trans "Delivery Address" %}</div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>{% trans "Street" %}</label>
+                <input type="text" name="address" placeholder="{% trans "Street placeholder" %}" required/>
+              </div>
+              <div class="form-group">
+                <label>{% trans "Apartment" %}</label>
+                <input type="text" name="apartment" placeholder="{% trans "Apartment placeholder" %}"/>
+              </div>
+            </div>
+            <div class="form-group" style="margin-top:16px">
+              <label>{% trans "Comment / Landmark" %}</label>
+              <textarea name="comment" placeholder="{% trans "Comment placeholder" %}"></textarea>
+            </div>
+          </div>
+
+          <!-- Payment -->
+          <div class="order-card reveal reveal-delay-2">
+            <div class="order-card-title">{% trans "Payment Method" %}</div>
+            <div class="payment-options">
+              <label class="payment-option selected" id="pay-cash" onclick="selectPayment('cash')">
+                <input type="radio" name="payment" value="cash" checked/>
+                <div class="payment-option-icon">💵</div>
+                <div class="payment-option-info">
+                  <h3>{% trans "Cash" %}</h3>
+                  <p>{% trans "Cash description" %}</p>
+                </div>
+              </label>
+              <label class="payment-option" id="pay-card" onclick="selectPayment('card')">
+                <input type="radio" name="payment" value="card"/>
+                <div class="payment-option-icon">💳</div>
+                <div class="payment-option-info">
+                  <h3>{% trans "Terminal (UzCard)" %}</h3>
+                  <p>{% trans "Card description" %}</p>
+                </div>
+              </label>
+              <label class="payment-option" id="pay-online" onclick="selectPayment('online')">
+                <input type="radio" name="payment" value="online"/>
+                <div class="payment-option-icon">📱</div>
+                <div class="payment-option-info">
+                  <h3>{% trans "Online Payment" %}</h3>
+                  <p>{% trans "Online description" %}</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Promo -->
+          <div class="order-card reveal reveal-delay-3">
+            <div class="order-card-title">{% trans "Promo Code" %}</div>
+            <div class="form-row" style="align-items:flex-end">
+              <div class="form-group">
+                <label>{% trans "Discount Code" %}</label>
+                <input type="text" name="promo" id="promoInput" placeholder="{% trans "Promo placeholder" %}"/>
+              </div>
+              <button type="button" onclick="applyPromo()" style="padding:14px 24px;border-radius:50px;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;font-size:14px;font-weight:700;white-space:nowrap;transition:all 0.3s;flex-shrink:0;margin-bottom:0;cursor:pointer;border:none;box-shadow:0 4px 16px rgba(123,15,212,0.4);font-family:'Outfit',sans-serif;">{% trans "Apply" %}</button>
+            </div>
+            <div id="promoMsg" style="margin-top:10px;font-size:13px;display:none"></div>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- RIGHT: Summary -->
+      <div class="order-summary reveal reveal-delay-1">
+        <h3 class="summary-title">{% trans "Order Summary" %}</h3>
+        <div class="summary-items" id="summaryItems">
+          <div style="color:rgba(255,255,255,0.4);text-align:center;padding:20px 0" id="summaryEmpty">
+            {% trans "Cart is empty" %} 🛒
+          </div>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-row">
+          <span class="label">{% trans "Products:" %}</span>
+          <span id="summarySubtotal">0 UZS</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">{% trans "Delivery:" %}</span>
+          <span style="color:#4ade80">{% trans "Free ✓" %}</span>
+        </div>
+        <div class="summary-row" id="discountRow" style="display:none">
+          <span class="label">{% trans "Discount:" %}</span>
+          <span style="color:var(--gold)" id="discountAmount">— 0 UZS</span>
+        </div>
+        <div class="summary-row total">
+          <span class="label" style="font-size:16px;font-weight:700">{% trans "Grand Total:" %}</span>
+          <span class="amount" id="summaryTotal">0 UZS</span>
+        </div>
+        <button class="btn-submit" onclick="submitOrder()">{% trans "Submit Order" %}</button>
+        <p style="text-align:center;font-size:12px;color:var(--t3);margin-top:16px">
+          {% trans "Operator will contact you after ordering" %}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <span class="footer-bottom-text">© Maxway, 2026 — {% trans "All rights reserved" %}</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const cart = JSON.parse(localStorage.getItem('maxway_cart') || '[]');
+window.promoDiscount = 0;
+function fmt(p) { return p.toLocaleString('uz-UZ') + ' UZS'; }
+
+function renderSummary() {
+  const items = document.getElementById('summaryItems');
+  const empty = document.getElementById('summaryEmpty');
+  items.querySelectorAll('.summary-item').forEach(el => el.remove());
+  if (!cart.length) { empty.style.display = 'block'; }
+  else {
+    empty.style.display = 'none';
+    cart.forEach(item => {
+      const d = document.createElement('div');
+      d.className = 'summary-item';
+      d.innerHTML = `<img src="${item.img}" alt="${item.name}"/><div class="summary-item-info"><div class="summary-item-name">${item.name} × ${item.qty}</div><div class="summary-item-price">${fmt(item.price * item.qty)}</div></div>`;
+      items.insertBefore(d, empty);
+    });
+  }
+  updatePrices();
+}
+
+function updatePrices() {
+  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const discountAmount = Math.floor(subtotal * (window.promoDiscount || 0) / 100);
+  const total = subtotal - discountAmount;
+  document.getElementById('summarySubtotal').textContent = fmt(subtotal);
+  document.getElementById('summaryTotal').textContent = fmt(total);
+  const discountRow = document.getElementById('discountRow');
+  if (discountAmount > 0) { discountRow.style.display = 'flex'; document.getElementById('discountAmount').textContent = `— ${fmt(discountAmount)}`; }
+  else { discountRow.style.display = 'none'; }
+}
+
+function applyPromo() {
+  const code = document.getElementById('promoInput').value.trim();
+  const msg = document.getElementById('promoMsg');
+  if (!code) { msg.style.display = 'none'; window.promoDiscount = 0; updatePrices(); return; }
+  msg.style.display = 'block';
+  msg.style.color = 'rgba(255,255,255,0.5)';
+  msg.textContent = '{% trans "Checking..." %}';
+  fetch(`/check-promo/?code=${encodeURIComponent(code)}`)
+    .then(r => r.json())
+    .then(data => {
+      if (data.valid) {
+        window.promoDiscount = data.discount;
+        msg.style.color = '#4ade80';
+        msg.textContent = `{% trans "Promo applied" %} ${data.discount}% {% trans "discount given" %}`;
+      } else {
+        window.promoDiscount = 0;
+        msg.style.color = '#ff4757';
+        msg.textContent = '{% trans "Invalid promo code" %}';
+      }
+      updatePrices();
+    })
+    .catch(() => { msg.style.color = '#ff4757'; msg.textContent = '{% trans "Error occurred" %}'; });
+}
+
+function selectPayment(type) {
+  document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
+  document.getElementById('pay-' + type).classList.add('selected');
+}
+
+function submitOrder() {
+  if (!cart.length) {
+    alert('{% if CURRENT_LANG == "uz" %}Savat bo\'sh! Avval mahsulot qo\'shing.{% else %}Cart is empty! Add items first.{% endif %}');
+    return;
+  }
+  document.getElementById('cartData').value = JSON.stringify(cart.map(i => ({ id: i.id, qty: i.qty })));
+  localStorage.removeItem('maxway_cart');
+  document.getElementById('orderForm').submit();
+}
+
+function toggleMobileMenu() {
+  const m = document.getElementById('mobileMenu'), b = document.getElementById('navBurger');
+  m.classList.toggle('open'); b.classList.toggle('open');
+  document.body.style.overflow = m.classList.contains('open') ? 'hidden' : '';
+}
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+renderSummary();
+</script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+# Uzbek (Latin) translations for Maxway
+# Copyright (C) 2026 Maxway
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uz\n"
+
+msgid "Menu"
+msgstr "Menyu"
+
+msgid "For Kids"
+msgstr "Bolalar uchun"
+
+msgid "Branches"
+msgstr "Filiallar"
+
+msgid "Cart"
+msgstr "Savat 🛒"
+
+msgid "#1 Delivery in Tashkent"
+msgstr "Toshkentda №1 yetkazish"
+
+msgid "Delicious"
+msgstr "Mazzali"
+
+msgid "Flavors"
+msgstr "Ta'mlar"
+
+msgid "To Your Door"
+msgstr "Eshigingizga"
+
+msgid "Freshly baked pizzas, burgers and combo sets — delivered in 30 minutes. No cold food!"
+msgstr "Yangi pishirilgan pizza, burger va combo to'plamlar — 30 daqiqada yetkazib beramiz. Sovib qolgan ovqat yo'q!"
+
+msgid "Order Now"
+msgstr "Buyurtma berish"
+
+msgid "Call Us"
+msgstr "📞 Qo'ng'iroq"
+
+msgid "Branches stat"
+msgstr "Filiallar"
+
+msgid "Orders stat"
+msgstr "Buyurtmalar"
+
+msgid "Rating"
+msgstr "Reyting"
+
+msgid "Our Menu"
+msgstr "Bizning Menyumiz"
+
+msgid "All"
+msgstr "🍽️ Hammasi"
+
+msgid "Even Easier with the Mobile App!"
+msgstr "Mobil ilova orqali yanada osonroq!"
+
+msgid "Download our app and order anytime. Exclusive discounts only through the app!"
+msgstr "Ilovamizni yuklab oling va har qanday vaqt buyurtma bering. Eksklyuziv chegirmalar faqat ilova orqali!"
+
+msgid "Download on the"
+msgstr "Download on the"
+
+msgid "App Store"
+msgstr "App Store"
+
+msgid "Get it on"
+msgstr "Get it on"
+
+msgid "Google Play"
+msgstr "Google Play"
+
+msgid "The best pizza and burger delivery service in Tashkent."
+msgstr "Toshkentdagi eng mazzali pizza va burgerlar yetkazib berish xizmati."
+
+msgid "Pizza"
+msgstr "Pizza"
+
+msgid "Burger"
+msgstr "Burger"
+
+msgid "Combo"
+msgstr "Kombo"
+
+msgid "Drinks"
+msgstr "Ichimliklar"
+
+msgid "Company"
+msgstr "Kompaniya"
+
+msgid "About Us"
+msgstr "Biz haqimizda"
+
+msgid "Careers"
+msgstr "Karyera"
+
+msgid "News"
+msgstr "Yangiliklar"
+
+msgid "Contact"
+msgstr "Aloqa"
+
+msgid "Working hours"
+msgstr "10:00 — 23:00"
+
+msgid "Address"
+msgstr "100011, Toshkent sh. Zarqaynar ko'chasi, 3B"
+
+msgid "All rights reserved"
+msgstr "Barcha huquqlar himoyalangan"
+
+msgid "Cart is empty"
+msgstr "Savat bo'sh"
+
+msgid "Total:"
+msgstr "Jami:"
+
+msgid "Clear"
+msgstr "Tozalash"
+
+msgid "Place Order →"
+msgstr "Buyurtma berish →"
+
+msgid "Place an Order"
+msgstr "Buyurtma berish"
+
+msgid "Fill in your details — we'll deliver in 30 minutes 🚀"
+msgstr "Ma'lumotlaringizni to'ldiring — 30 daqiqada yetkazib beramiz 🚀"
+
+msgid "Personal Information"
+msgstr "📋 Shaxsiy ma'lumotlar"
+
+msgid "First Name"
+msgstr "Ismingiz"
+
+msgid "First Name placeholder"
+msgstr "Masalan: Jasur"
+
+msgid "Last Name"
+msgstr "Familiyangiz"
+
+msgid "Last Name placeholder"
+msgstr "Masalan: Toshmatov"
+
+msgid "Phone Number"
+msgstr "Telefon raqam"
+
+msgid "Delivery Address"
+msgstr "📍 Yetkazish manzili"
+
+msgid "Street"
+msgstr "Ko'cha nomi"
+
+msgid "Street placeholder"
+msgstr "Ko'cha, uy raqami"
+
+msgid "Apartment"
+msgstr "Xonadon"
+
+msgid "Apartment placeholder"
+msgstr "Kvartira №"
+
+msgid "Comment / Landmark"
+msgstr "Mo'ljal / Izoh"
+
+msgid "Comment placeholder"
+msgstr "Masalan: Yashil eshik, 3-qavat, chap tomon..."
+
+msgid "Payment Method"
+msgstr "💳 To'lov usuli"
+
+msgid "Cash"
+msgstr "Naqd pul"
+
+msgid "Cash description"
+msgstr "To'lov o'zbek so'mida — kuryer kelganda"
+
+msgid "Terminal (UzCard)"
+msgstr "Terminal (UzCard)"
+
+msgid "Card description"
+msgstr "Bank kartalari orqali — UzCard, Humo, Visa"
+
+msgid "Online Payment"
+msgstr "Onlayn to'lov"
+
+msgid "Online description"
+msgstr "Click yoki Payme orqali — tez va xavfsiz"
+
+msgid "Promo Code"
+msgstr "🎟️ Promo-kod"
+
+msgid "Discount Code"
+msgstr "Chegirma kodi"
+
+msgid "Promo placeholder"
+msgstr "Masalan: MAXWAY20"
+
+msgid "Apply"
+msgstr "Qo'llash"
+
+msgid "Checking..."
+msgstr "⏳ Tekshirilmoqda..."
+
+msgid "Promo applied"
+msgstr "✅ Promo-kod qabul qilindi!"
+
+msgid "discount given"
+msgstr "chegirma berildi."
+
+msgid "Invalid promo code"
+msgstr "❌ Noto'g'ri yoki muddati o'tgan promo-kod."
+
+msgid "Error occurred"
+msgstr "❌ Xatolik yuz berdi. Qayta urinib ko'ring."
+
+msgid "Order Summary"
+msgstr "Buyurtma"
+
+msgid "Products:"
+msgstr "Mahsulotlar:"
+
+msgid "Delivery:"
+msgstr "Yetkazish:"
+
+msgid "Free ✓"
+msgstr "Bepul ✓"
+
+msgid "Discount:"
+msgstr "Chegirma:"
+
+msgid "Grand Total:"
+msgstr "Jami:"
+
+msgid "Submit Order"
+msgstr "🚀 Buyurtma jo'natish"
+
+msgid "Operator will contact you after ordering"
+msgstr "Buyurtma bergandan so'ng operator siz bilan bog'lanadi"
+
+msgid "Back to Menu"
+msgstr "← Menyuga qaytish"
+
+msgid "Order Received!"
+msgstr "Buyurtma qabul qilindi!"
+
+msgid "Thank you! Your order has been successfully received. An operator will contact you soon."
+msgstr "Rahmat! Sizning buyurtmangiz muvaffaqiyatli qabul qilindi. Tez orada operator siz bilan bog'lanadi."
+
+msgid "Operator will call you to confirm the order"
+msgstr "Operator sizga qo'ng'iroq qiladi va buyurtmani tasdiqlaydi"
+
+msgid "Chef will start preparing your food 👨‍🍳"
+msgstr "Oshpaz taom tayyorlashni boshlaydi 👨‍🍳"
+
+msgid "Courier will deliver in 30 minutes 🚀"
+msgstr "Kuryer 30 daqiqa ichida yetkazib beradi 🚀"
+
+msgid "Order number:"
+msgstr "Buyurtma raqami:"
+
+msgid "O'zbekcha"
+msgstr "O'zbekcha"
+
+msgid "English"
+msgstr "English"
+
