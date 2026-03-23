@@ -1,7 +1,28 @@
 {% extends "admin/base.html" %}
 {% load static %}
 
-{% block title %}Admin Panel{% endblock %}
+{% block title %}{{ title }} | Admin Panel{% endblock %}
+
+{# ═══════════════════════════════════════════════════════════════
+   O'ZBEK TILI — Sita sarlavhasi va foydalanuvchi havolalari
+═══════════════════════════════════════════════════════════════ #}
+{% block branding %}
+<div id="branding">
+  <h1 id="site-name">
+    <a href="{% url 'admin:index' %}">⚡ Boshqaruv paneli</a>
+  </h1>
+</div>
+{% endblock %}
+
+{% block userlinks %}
+  {% if user.is_active and user.is_staff %}
+    <span>Salom, <strong>{{ user.get_short_name|default:user.username }}</strong></span>
+    &nbsp;·&nbsp;
+    <a href="{% url 'admin:password_change' %}">Parol o'zgartirish</a>
+    &nbsp;·&nbsp;
+    <a href="{% url 'admin:logout' %}">Chiqish</a>
+  {% endif %}
+{% endblock %}
 
 {% block extrastyle %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -193,11 +214,16 @@ body::after {
   text-shadow: none !important; font-family: var(--font) !important;
 }
 
-#user-tools { margin-left: auto !important; font-size: 12.5px !important; color: var(--ap-t2) !important; }
+#user-tools {
+  margin-left: auto !important; font-size: 12.5px !important;
+  color: var(--ap-t2) !important;
+  display: flex !important; align-items: center !important; gap: 4px !important;
+}
 #user-tools a, #user-tools a:visited {
   color: var(--ap-acc) !important; font-weight: 500 !important;
   padding: 4px 10px !important; border-radius: var(--r-p) !important;
   transition: background var(--ease) !important;
+  text-decoration: none !important;
 }
 #user-tools a:hover { background: var(--ap-soft) !important; }
 
@@ -211,7 +237,9 @@ body::after {
 }
 .breadcrumbs a { color: var(--ap-acc) !important; font-weight: 500 !important; }
 
-/* ── SIDEBAR ── */
+/* ══════════════════════════════════════════════════════════
+   SIDEBAR — TO'LIQ TUZATILGAN (AKTIV HOLAT BILAN)
+══════════════════════════════════════════════════════════ */
 #nav-sidebar {
   background: var(--ap-sidebar) !important;
   backdrop-filter: blur(20px) !important;
@@ -221,7 +249,7 @@ body::after {
   overflow-y: auto !important;
 }
 
-/* Kill every dark box inside sidebar */
+/* Ichki elementlarni tozalash */
 #nav-sidebar .module,
 #nav-sidebar .module table,
 #nav-sidebar table,
@@ -235,10 +263,10 @@ body::after {
   box-shadow: none !important;
 }
 
+/* Bo'lim sarlavhalari */
 #nav-sidebar caption,
 #nav-sidebar h2,
-#nav-sidebar h3,
-#nav-sidebar .current-app .section {
+#nav-sidebar h3 {
   background: transparent !important;
   color: var(--ap-t3) !important;
   font-size: 10.5px !important;
@@ -250,7 +278,10 @@ body::after {
   font-family: var(--font) !important;
 }
 
-#nav-sidebar a, #nav-sidebar a:link, #nav-sidebar a:visited {
+/* Barcha havolalar — asosiy holat */
+#nav-sidebar a,
+#nav-sidebar a:link,
+#nav-sidebar a:visited {
   display: flex !important;
   align-items: center !important;
   padding: 7px 12px !important;
@@ -263,12 +294,80 @@ body::after {
   transition: background var(--ease), color var(--ease) !important;
   background: transparent !important;
 }
-#nav-sidebar a:hover { background: var(--ap-soft) !important; color: var(--ap-acc) !important; }
-#nav-sidebar .current a,
-#nav-sidebar .selected a {
+
+/* Caption havolasi (app nomi) — alohida stil */
+#nav-sidebar caption a,
+#nav-sidebar caption a:link,
+#nav-sidebar caption a:visited {
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.07em !important;
+  text-transform: uppercase !important;
+  color: var(--ap-t3) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  display: inline !important;
+}
+
+/* Hover holati — faqat model havolalariga */
+#nav-sidebar th a:hover,
+#nav-sidebar td a:hover {
+  background: var(--ap-soft) !important;
+  color: var(--ap-acc) !important;
+}
+
+/* ════════════════════════════════════════════════════
+   AKTIV HOLAT — 4 ta selektor (barcha Django versiyalari)
+   FIX: #nav-sidebar th a > #nav-sidebar a:link bo'yicha
+   specificity muammosi hal qilindi
+════════════════════════════════════════════════════ */
+
+/* 1. Django JS: tr.selected ichidagi th/td linklari */
+#nav-sidebar tr.selected th a,
+#nav-sidebar tr.selected td a,
+#nav-sidebar tr.selected th a:link,
+#nav-sidebar tr.selected th a:visited {
   background: var(--ap-soft) !important;
   color: var(--ap-acc) !important;
   font-weight: 600 !important;
+}
+
+/* 2. aria-current="page" atributi */
+#nav-sidebar a[aria-current="page"] {
+  background: var(--ap-soft) !important;
+  color: var(--ap-acc) !important;
+  font-weight: 600 !important;
+}
+
+/* 3. Bizning custom JS class */
+#nav-sidebar a.ap-nav-active,
+#nav-sidebar a.ap-nav-active:link,
+#nav-sidebar a.ap-nav-active:visited {
+  background: var(--ap-soft) !important;
+  color: var(--ap-acc) !important;
+  font-weight: 600 !important;
+}
+
+/* 4. Aktiv app caption */
+#nav-sidebar .ap-app-active caption a,
+#nav-sidebar .ap-app-active caption {
+  color: var(--ap-acc) !important;
+  font-weight: 700 !important;
+}
+
+/* Aktiv qator chiziq belgisi */
+#nav-sidebar tr { position: relative !important; }
+#nav-sidebar tr.selected::before,
+#nav-sidebar tr.ap-nav-active::before {
+  content: '' !important;
+  position: absolute !important;
+  left: 0 !important; top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 3px !important; height: 18px !important;
+  background: var(--ap-acc) !important;
+  border-radius: 0 3px 3px 0 !important;
 }
 
 #toggle-nav-sidebar {
@@ -294,7 +393,7 @@ body::after {
   font-family: var(--font) !important;
 }
 
-/* ══ MODULE / CARD — kills the black box ══ */
+/* ══ MODULE / CARD ══ */
 .module,
 div.module,
 table.module,
@@ -326,7 +425,7 @@ fieldset.module > h2,
   margin: 0 !important; background: transparent !important;
 }
 
-/* ══ CHANGELIST (list view) — the main black table ══ */
+/* ══ CHANGELIST ══ */
 #changelist { background: transparent !important; }
 
 #changelist .module,
@@ -421,7 +520,7 @@ div.results {
 td.action-checkbox, th.action-checkbox-column { width: 36px !important; padding-left: 18px !important; }
 input[type="checkbox"] { width: 15px !important; height: 15px !important; accent-color: var(--ap-acc) !important; cursor: pointer !important; }
 
-/* ── OBJECT TOOLS (list buttons) ── */
+/* ── OBJECT TOOLS ── */
 .object-tools {
   float: right !important; display: flex !important; gap: 8px !important;
   align-items: center !important; list-style: none !important;
@@ -574,6 +673,77 @@ select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%236e6e73' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
   background-repeat: no-repeat !important; background-position: right 10px center !important;
   padding-right: 30px !important;
+  color-scheme: light dark !important;
+}
+/* Select option matnlari to'g'ri ko'rinishi uchun */
+select option {
+  background: var(--ap-card) !important;
+  color: var(--ap-t1) !important;
+  font-family: var(--font) !important;
+  font-size: 13.5px !important;
+}
+select[multiple] {
+  padding-right: 12px !important;
+  background-image: none !important;
+  height: auto !important;
+  min-height: 120px !important;
+}
+/* Django SelectFilter (filter_horizontal / filter_vertical) */
+.selector {
+  display: flex !important; align-items: flex-start !important;
+  gap: 10px !important; flex-wrap: wrap !important;
+}
+.selector select {
+  appearance: auto !important; -webkit-appearance: auto !important;
+  background-image: none !important;
+  padding-right: 12px !important;
+  min-height: 200px !important; height: auto !important;
+  font-size: 13px !important; color: var(--ap-t1) !important;
+  background-color: var(--ap-card) !important;
+  border: 1px solid var(--ap-brm) !important;
+  border-radius: var(--r-s) !important;
+  color-scheme: light dark !important;
+}
+.selector select option {
+  padding: 5px 10px !important;
+  color: var(--ap-t1) !important;
+  background: var(--ap-card) !important;
+}
+.selector select option:checked {
+  background: var(--ap-acc) !important;
+  color: #fff !important;
+}
+.selector-filter input {
+  width: 100% !important; padding: 6px 10px !important;
+  border-radius: var(--r-s) !important; font-size: 13px !important;
+  border: 1px solid var(--ap-brm) !important;
+  background: var(--ap-card) !important; color: var(--ap-t1) !important;
+}
+.selector-chooser {
+  display: flex !important; flex-direction: column !important;
+  justify-content: center !important; gap: 6px !important; padding: 0 4px !important;
+}
+.selector-chooser a {
+  display: flex !important; align-items: center !important; justify-content: center !important;
+  width: 30px !important; height: 30px !important;
+  border-radius: var(--r-s) !important; background: var(--ap-soft) !important;
+  color: var(--ap-acc) !important; font-size: 14px !important;
+  text-decoration: none !important; transition: all var(--ease) !important;
+}
+.selector-chooser a:hover { background: var(--ap-acc) !important; color: #fff !important; }
+/* Actions select (changelist sahifasidagi) */
+.actions select {
+  appearance: none !important; -webkit-appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%236e6e73' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important; background-position: right 10px center !important;
+  padding-right: 30px !important; min-height: unset !important;
+  height: 36px !important; color: var(--ap-t1) !important;
+}
+@media (prefers-color-scheme: dark) {
+  select { color-scheme: dark !important; }
+  select option { background: #1c1c1e !important; color: #f5f5f7 !important; }
+  .selector select { background-color: #1c1c1e !important; }
+  .selector select option { background: #1c1c1e !important; color: #f5f5f7 !important; }
 }
 .form-row { padding: 13px 18px !important; border-bottom: 1px solid var(--ap-br) !important; background: transparent !important; }
 .form-row:last-child { border-bottom: none !important; }
@@ -604,7 +774,10 @@ ul.messagelist .warning { background: rgba(255,214,10,0.11) !important; color: #
 /* ── RECENT ACTIONS ── */
 #recent-actions-module { background: var(--ap-card) !important; }
 #recent-actions-module ul { list-style: none !important; padding: 6px 0 !important; }
-#recent-actions-module ul li { padding: 9px 18px !important; border-bottom: 1px solid var(--ap-br) !important; font-size: 13px !important; color: var(--ap-t1) !important; background: transparent !important; }
+#recent-actions-module ul li {
+  padding: 9px 18px !important; border-bottom: 1px solid var(--ap-br) !important;
+  font-size: 13px !important; color: var(--ap-t1) !important; background: transparent !important;
+}
 #recent-actions-module ul li:last-child { border-bottom: none !important; }
 #recent-actions-module ul li a { color: var(--ap-acc) !important; text-decoration: none !important; font-weight: 500 !important; }
 #recent-actions-module .byline { font-size: 11.5px !important; color: var(--ap-t3) !important; }
@@ -629,23 +802,17 @@ ul.messagelist .warning { background: rgba(255,214,10,0.11) !important; color: #
   #content, #content-main { padding: 16px !important; }
   #header { padding: 0 16px !important; height: 48px !important; }
   .breadcrumbs { padding: 8px 16px !important; }
-
   #nav-sidebar {
     width: 100% !important; min-width: unset !important;
     border-right: none !important; border-bottom: 1px solid var(--ap-br) !important;
   }
-
   .object-tools { float: none !important; flex-wrap: wrap !important; margin-bottom: 12px !important; }
-
   .results { overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; }
-
   #changelist-filter { margin-left: 0 !important; margin-top: 16px !important; width: 100% !important; }
-
   #toolbar input[type="text"], #searchbar input[type="text"],
   #toolbar input[type="search"], #searchbar input[type="search"] {
     min-width: 160px !important; width: 100% !important;
   }
-
   input[type="text"], input[type="password"], input[type="email"],
   input[type="number"], textarea, select { width: 100% !important; max-width: 100% !important; }
 }
@@ -656,4 +823,145 @@ ul.messagelist .warning { background: rgba(255,214,10,0.11) !important; color: #
   #branding h1 { font-size: 14px !important; }
 }
 </style>
+{% endblock %}
+
+{# ═══════════════════════════════════════════════════════════════
+   SIDEBAR AKTIV HOLATI — JavaScript tuzatmasi
+   Bu kod Django'ning nav_sidebar.js bilan birga ishlaydi va
+   barcha Django versiyalarida (3.2, 4.x, 5.x) ishlaydi.
+═══════════════════════════════════════════════════════════════ #}
+{% block extrascripts %}
+{{ block.super }}
+<script>
+(function () {
+  'use strict';
+
+  /* ── 1. Sidebar aktiv elementini belgilaш ── */
+  function initNavHighlight() {
+    var sidebar = document.getElementById('nav-sidebar');
+    if (!sidebar) return;
+
+    var currentPath = window.location.pathname;
+
+    // th va td ichidagi havolalarni topish (caption emas)
+    var links = sidebar.querySelectorAll('th a[href], td a[href]');
+
+    links.forEach(function (a) {
+      var href = a.getAttribute('href');
+      if (!href || href === '/') return;
+
+      var isExact  = (currentPath === href);
+      // Masalan: /admin/myapp/mymodel/ sahifasida /admin/myapp/mymodel/add/ ham highlight bo'lmasligi uchun
+      // faqat to'g'ri URL mos kelganda belgilaymiz
+      var isActive = isExact;
+
+      if (isActive) {
+        // aria-current (Django standarti)
+        a.setAttribute('aria-current', 'page');
+        // Custom class
+        a.classList.add('ap-nav-active');
+
+        // Ota <tr> ga .selected qo'shish (Django standarti)
+        var tr = a.closest('tr');
+        if (tr) {
+          tr.classList.add('selected');
+          tr.classList.add('ap-nav-active');
+        }
+
+        // Ota app modulini belgilaш
+        var moduleDiv = a.closest('.module');
+        if (moduleDiv) {
+          moduleDiv.classList.add('ap-app-active');
+          var capLink = moduleDiv.querySelector('caption a');
+          if (capLink) capLink.classList.add('ap-nav-active');
+        }
+      }
+    });
+  }
+
+  /* ── 2. O'zbek tili — admin matnlarini o'zgartirish ── */
+  function uzbekifyTexts() {
+    // Oxirgi amallar moduli
+    var recentActionsTitle = document.querySelector('#recent-actions-module h2, #recent-actions-module caption');
+    if (recentActionsTitle && recentActionsTitle.textContent.trim() === 'Recent actions') {
+      recentActionsTitle.textContent = 'So\'nggi amallar';
+    }
+
+    var myActionsTitle = document.querySelector('#recent-actions-module h3');
+    if (myActionsTitle && myActionsTitle.textContent.trim() === 'My actions') {
+      myActionsTitle.textContent = 'Mening amallarim';
+    }
+
+    // "None" yozuvi
+    document.querySelectorAll('#recent-actions-module .actionlist').forEach(function(el) {
+      if (el.children.length === 0) {
+        el.innerHTML = '<li style="padding:9px 18px;color:var(--ap-t3);font-size:13px">Hozircha amallar yo\'q</li>';
+      }
+    });
+
+    // Filtr sarlavhasi
+    var filterH2 = document.querySelector('#changelist-filter h2');
+    if (filterH2 && filterH2.textContent.trim() === 'Filter') {
+      filterH2.textContent = 'Filtr';
+    }
+
+    // Qidiruv tugmasi
+    var searchBtn = document.querySelector('#toolbar input[type="submit"]');
+    if (searchBtn && searchBtn.value === 'Search') {
+      searchBtn.value = 'Qidirish';
+    }
+
+    // Amallar tugmasi
+    var goBtn = document.querySelector('.actions button[type="submit"], .actions input[type="submit"]');
+    if (goBtn) {
+      if (goBtn.tagName === 'INPUT' && goBtn.value === 'Go') goBtn.value = 'Bajarish';
+      if (goBtn.tagName === 'BUTTON' && goBtn.textContent.trim() === 'Go') goBtn.textContent = 'Bajarish';
+    }
+
+    // Sahifalash — Prev/Next
+    document.querySelectorAll('.paginator a').forEach(function(a) {
+      if (a.textContent.trim() === 'Previous') a.textContent = '← Oldingi';
+      if (a.textContent.trim() === 'Next')     a.textContent = 'Keyingi →';
+    });
+
+    // Forma tugmalari
+    document.querySelectorAll('input[type="submit"]').forEach(function(btn) {
+      var v = btn.value;
+      if (v === 'Save')                          btn.value = 'Saqlash';
+      else if (v === 'Save and add another')     btn.value = 'Saqlash va yana qo\'shish';
+      else if (v === 'Save and continue editing') btn.value = 'Saqlash va tahrirlashni davom ettirish';
+    });
+
+    // Delete tugmasi
+    document.querySelectorAll('a.deletelink').forEach(function(a) {
+      if (a.textContent.trim() === 'Delete') a.textContent = 'O\'chirish';
+    });
+
+    // "Select all" checkbox label
+    var selectAllLabel = document.querySelector('#action-toggle + label, #changelist thead .action-checkbox-column .text');
+    if (selectAllLabel && selectAllLabel.textContent.includes('Select all')) {
+      selectAllLabel.title = 'Hammasini tanlash/bekor qilish';
+    }
+
+    // "0 of N selected" xabarnomasi
+    var counter = document.querySelector('.action-counter');
+    if (counter) {
+      counter.addEventListener('DOMSubtreeModified', function() {
+        this.textContent = this.textContent.replace(/(\d+) of (\d+) selected/, '$1 ta $2 tadan tanlandi');
+      });
+    }
+  }
+
+  /* ── Ishga tushirish ── */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      initNavHighlight();
+      uzbekifyTexts();
+    });
+  } else {
+    initNavHighlight();
+    uzbekifyTexts();
+  }
+})();
+</script>
 {% endblock %}

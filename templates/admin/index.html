@@ -3,14 +3,16 @@
 
 {% block content %}
 <style>
-/* ── Dashboard page styles ── */
+/* ══════════════════════════════════════════════
+   DASHBOARD — Asosiy uslublar
+══════════════════════════════════════════════ */
 .dash-title    { font-size: 26px; font-weight: 700; letter-spacing: -0.7px; color: var(--ap-t1); line-height: 1.15; margin-bottom: 4px; }
 .dash-subtitle { font-size: 14px; color: var(--ap-t2); margin-bottom: 24px; }
 
-/* ── Stat grid ── */
+/* ── Stat kartalar ── */
 .dash-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 12px;
   margin-bottom: 28px;
 }
@@ -19,7 +21,7 @@
   background: var(--ap-card);
   border: 1px solid var(--ap-br);
   border-radius: var(--r-xl);
-  padding: 20px 18px 18px;
+  padding: 22px 20px 18px;
   box-shadow: var(--ap-sh2);
   position: relative;
   overflow: hidden;
@@ -34,10 +36,10 @@
 .dash-card::before {
   content: '';
   position: absolute;
-  top: -20px; right: -20px;
-  width: 100px; height: 100px;
+  top: -24px; right: -24px;
+  width: 110px; height: 110px;
   border-radius: 50%;
-  background: var(--card-glow, rgba(0,113,227,0.06));
+  background: var(--card-glow, rgba(0,113,227,0.05));
   pointer-events: none;
 }
 
@@ -45,25 +47,25 @@
 .dash-card:active { transform: translateY(0); }
 
 .card-icon {
-  width: 36px; height: 36px; border-radius: var(--r-m);
+  width: 38px; height: 38px; border-radius: var(--r-m);
   display: flex; align-items: center; justify-content: center;
-  font-size: 17px; margin-bottom: 14px; flex-shrink: 0;
+  font-size: 18px; margin-bottom: 14px; flex-shrink: 0;
 }
 
 .card-label {
   font-size: 11px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--ap-t3); margin-bottom: 5px;
+  letter-spacing: 0.09em; color: var(--ap-t3); margin-bottom: 6px;
 }
 
 .card-value {
-  font-size: 30px; font-weight: 700; letter-spacing: -1px;
+  font-size: 32px; font-weight: 700; letter-spacing: -1.2px;
   color: var(--ap-t1); line-height: 1; font-variant-numeric: tabular-nums;
 }
 
 .card-trend {
-  margin-top: 10px; font-size: 12px; font-weight: 600;
+  margin-top: 11px; font-size: 12px; font-weight: 600;
   display: inline-flex; align-items: center; gap: 3px;
-  padding: 3px 8px; border-radius: var(--r-p);
+  padding: 3px 9px; border-radius: var(--r-p);
 }
 .trend-up   { color: #1a7a38; background: rgba(48,209,88,0.10); }
 .trend-down { color: #c0392b; background: rgba(255,59,48,0.09); }
@@ -72,10 +74,14 @@
 @media (prefers-color-scheme: dark) {
   .trend-up   { color: #32d74b; }
   .trend-down { color: #ff453a; }
+  .trend-neu  { background: rgba(255,255,255,0.06); }
 }
 
-/* ── Section header ── */
-.sec-hdr { display: flex; align-items: center; justify-content: space-between; margin: 28px 0 12px; }
+/* ── Bo'lim sarlavhasi ── */
+.sec-hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  margin: 8px 0 14px;
+}
 .sec-title { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; color: var(--ap-t1); }
 .sec-link {
   font-size: 13px; font-weight: 500; color: var(--ap-acc);
@@ -84,248 +90,398 @@
 }
 .sec-link:hover { background: var(--ap-soft); }
 
-/* ── Quick actions ── */
-.quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
-
-.qa-btn {
-  display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
-  padding: 16px 16px 14px;
-  border-radius: var(--r-xl); background: var(--ap-card);
-  border: 1px solid var(--ap-br); box-shadow: var(--ap-sh1);
-  text-decoration: none; color: var(--ap-t1);
-  transition: all var(--ease); cursor: pointer;
+/* ── So'nggi buyurtmalar jadvali ── */
+.orders-wrap {
+  background: var(--ap-card);
+  border: 1px solid var(--ap-br);
+  border-radius: var(--r-xl);
+  box-shadow: var(--ap-sh2);
+  overflow: hidden;
 }
-.qa-btn:hover { box-shadow: var(--ap-sh3); transform: translateY(-2px); border-color: var(--ap-ring); }
-.qa-btn:active { transform: translateY(0); }
 
-.qa-ico {
-  width: 34px; height: 34px; border-radius: var(--r-m);
+.orders-hdr {
+  padding: 15px 20px 12px;
+  border-bottom: 1px solid var(--ap-br);
+  font-size: 10.5px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.09em;
+  color: var(--ap-t3);
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.orders-hdr-title { display: flex; align-items: center; gap: 8px; }
+.orders-hdr-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--ap-acc); flex-shrink: 0;
+  box-shadow: 0 0 0 3px var(--ap-soft);
+}
+.orders-count-badge {
+  font-size: 11px; font-weight: 700;
   background: var(--ap-soft); color: var(--ap-acc);
-  display: flex; align-items: center; justify-content: center; font-size: 15px;
+  padding: 2px 8px; border-radius: var(--r-p);
 }
 
-.qa-lbl  { font-size: 13px; font-weight: 600; letter-spacing: -0.1px; color: var(--ap-t1); }
-.qa-sub  { font-size: 11.5px; color: var(--ap-t3); margin-top: -4px; }
+.orders-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
 
-/* ── 2-col grid ── */
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.orders-table thead th {
+  background: rgba(0,0,0,0.018);
+  color: var(--ap-t2);
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--ap-br);
+  text-align: left;
+  white-space: nowrap;
+}
+@media (prefers-color-scheme: dark) {
+  .orders-table thead th { background: rgba(255,255,255,0.03); }
+}
 
-/* ── Activity feed ── */
-.feed {
-  background: var(--ap-card); border: 1px solid var(--ap-br);
-  border-radius: var(--r-xl); box-shadow: var(--ap-sh2); overflow: hidden;
-}
-.feed-hdr {
-  padding: 14px 18px 11px; border-bottom: 1px solid var(--ap-br);
-  font-size: 10.5px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--ap-t3);
-}
-.feed-item {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 12px 18px; border-bottom: 1px solid var(--ap-br);
+.orders-table tbody tr {
+  background: var(--ap-card);
+  border-bottom: 1px solid var(--ap-br);
   transition: background var(--ease);
 }
-.feed-item:hover { background: var(--selected-row); }
-.feed-item:last-child { border-bottom: none; }
-.feed-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
-.feed-text { font-size: 13px; color: var(--ap-t1); line-height: 1.4; }
-.feed-time { font-size: 11.5px; color: var(--ap-t3); margin-top: 2px; }
+.orders-table tbody tr:hover { background: var(--selected-row); cursor: pointer; }
+.orders-table tbody tr:last-child { border-bottom: none; }
 
-/* ── Mini table card ── */
-.mini-table-wrap {
-  background: var(--ap-card); border: 1px solid var(--ap-br);
-  border-radius: var(--r-xl); box-shadow: var(--ap-sh2); overflow: hidden;
+.orders-table tbody td {
+  padding: 13px 16px;
+  color: var(--ap-t1);
+  vertical-align: middle;
 }
-.mini-table-hdr {
-  padding: 14px 18px 11px; border-bottom: 1px solid var(--ap-br);
-  font-size: 10.5px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--ap-t3);
-}
-.mini-table-wrap table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.mini-table-wrap thead th {
-  background: rgba(0,0,0,0.018); color: var(--ap-t2);
-  font-size: 10.5px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.05em; padding: 9px 14px;
-  border-bottom: 1px solid var(--ap-br); text-align: left;
-}
-@media (prefers-color-scheme: dark) { .mini-table-wrap thead th { background: rgba(255,255,255,0.03); } }
-.mini-table-wrap tbody tr { background: var(--ap-card); border-bottom: 1px solid var(--ap-br); transition: background var(--ease); }
-.mini-table-wrap tbody tr:hover { background: var(--selected-row); }
-.mini-table-wrap tbody tr:last-child { border-bottom: none; }
-.mini-table-wrap tbody td { padding: 11px 14px; color: var(--ap-t1); vertical-align: middle; }
 
-/* ── Badge ── */
+/* Ustun spetsifik stillar */
+.col-id   { width: 90px; }
+.col-cust { min-width: 140px; }
+.col-date { width: 130px; }
+.col-stat { width: 130px; }
+.col-pay  { width: 110px; }
+.col-amt  { width: 100px; text-align: right; }
+.col-act  { width: 56px; text-align: center; }
+
+.oid {
+  font-size: 12.5px; font-weight: 700;
+  color: var(--ap-acc); font-variant-numeric: tabular-nums;
+  text-decoration: none;
+}
+.oid:hover { text-decoration: underline; }
+
+.customer-name  { font-weight: 600; color: var(--ap-t1); display: block; }
+.customer-phone { font-size: 11.5px; color: var(--ap-t3); margin-top: 1px; display: block; }
+
+.order-date { font-size: 12.5px; color: var(--ap-t2); font-variant-numeric: tabular-nums; }
+
+.amt {
+  font-weight: 700; font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  color: var(--ap-t1);
+}
+.amt-neg { color: var(--ap-t3); text-decoration: line-through; }
+
+/* ── Badglar ── */
 .badge {
-  display: inline-flex; align-items: center; height: 20px;
-  padding: 0 8px; border-radius: var(--r-p);
-  font-size: 11px; font-weight: 700; letter-spacing: 0.02em; white-space: nowrap;
+  display: inline-flex; align-items: center; height: 22px;
+  padding: 0 9px; border-radius: var(--r-p);
+  font-size: 11.5px; font-weight: 700; letter-spacing: 0.02em; white-space: nowrap;
 }
-.b-green  { background: rgba(48,209,88,0.10);   color: #1a7a38; }
-.b-blue   { background: rgba(0,113,227,0.10);   color: #0055b3; }
-.b-yellow { background: rgba(255,214,10,0.13);  color: #7a5c00; }
-.b-red    { background: rgba(255,59,48,0.09);   color: #c0392b; }
+.b-green  { background: rgba(48,209,88,0.10);  color: #1a7a38; }
+.b-blue   { background: rgba(0,113,227,0.10);  color: #0055b3; }
+.b-cyan   { background: rgba(100,210,255,0.14);color: #0077b6; }
+.b-yellow { background: rgba(255,214,10,0.13); color: #7a5c00; }
+.b-red    { background: rgba(255,59,48,0.09);  color: #c0392b; }
+.b-gray   { background: rgba(142,142,147,0.10);color: var(--ap-t2); }
+
 @media (prefers-color-scheme: dark) {
   .b-green  { color: #32d74b; background: rgba(50,215,75,0.13); }
   .b-blue   { color: #3b9eff; background: rgba(59,158,255,0.13); }
+  .b-cyan   { color: #64d2ff; background: rgba(100,210,255,0.13); }
   .b-yellow { color: #ffd60a; background: rgba(255,214,10,0.13); }
   .b-red    { color: #ff453a; background: rgba(255,69,58,0.13); }
+  .b-gray   { color: var(--ap-t3); background: rgba(255,255,255,0.07); }
 }
 
-/* ── Order ID style ── */
-.oid { font-size: 12px; color: var(--ap-t3); font-weight: 500; }
-.amt { font-weight: 700; }
+/* Amal tugmasi */
+.act-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: var(--r-s);
+  color: var(--ap-t3); text-decoration: none; font-size: 14px;
+  transition: all var(--ease);
+}
+.act-btn:hover {
+  background: var(--ap-soft); color: var(--ap-acc);
+  transform: scale(1.1);
+}
+
+/* Bo'sh holat */
+.empty-state {
+  padding: 48px 24px; text-align: center; color: var(--ap-t3);
+}
+.empty-state .empty-icon { font-size: 36px; margin-bottom: 10px; }
+.empty-state .empty-msg  { font-size: 14px; font-weight: 600; color: var(--ap-t2); }
+.empty-state .empty-sub  { font-size: 13px; margin-top: 4px; }
 
 /* Responsive */
-@media (max-width: 860px) { .grid-2 { grid-template-columns: 1fr; } }
-@media (max-width: 540px) { .dash-stats { grid-template-columns: 1fr 1fr; } .quick-grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 360px) { .dash-stats { grid-template-columns: 1fr; } }
+@media (max-width: 860px) {
+  .col-pay, .col-date { display: none; }
+}
+@media (max-width: 620px) {
+  .dash-stats { grid-template-columns: 1fr 1fr; }
+  .col-act    { display: none; }
+}
+@media (max-width: 360px) {
+  .dash-stats { grid-template-columns: 1fr; }
+}
 </style>
 
-<p class="dash-title">Dashboard</p>
-<p class="dash-subtitle">Salom, bugungi ko'rsatkichlaringiz</p>
+{# ── Sarlavha ── #}
+<p class="dash-title">Boshqaruv paneli</p>
+<p class="dash-subtitle">Salom, <strong>{{ request.user.get_short_name|default:request.user.username }}</strong> 👋 — bugungi ko'rsatkichlaringiz</p>
 
-<!-- STAT CARDS -->
+
+{# ── Statistika kartalar ── #}
 <div class="dash-stats">
 
   <div class="dash-card" style="--card-glow:rgba(0,113,227,0.07)">
     <div class="card-icon" style="background:rgba(0,113,227,0.10);color:#0071e3">👤</div>
     <div class="card-label">Foydalanuvchilar</div>
-    <div class="card-value">{{ users_count }}</div>
-    <div class="card-trend trend-up">↑ 12% bu oy</div>
+    <div class="card-value">{{ users_count|default:"—" }}</div>
+    <div class="card-trend trend-up">↑ Jami ro'yxatdagi</div>
   </div>
 
   <div class="dash-card" style="--card-glow:rgba(48,209,88,0.07)">
     <div class="card-icon" style="background:rgba(48,209,88,0.10);color:#28a745">📦</div>
     <div class="card-label">Buyurtmalar</div>
-    <div class="card-value">{{ orders_count }}</div>
-    <div class="card-trend trend-up">↑ 8% bu hafta</div>
+    <div class="card-value">{{ orders_count|default:"—" }}</div>
+    {% if orders_count %}
+      <div class="card-trend trend-up">↑ Jami {{ orders_count }} ta</div>
+    {% else %}
+      <div class="card-trend trend-neu">— ma'lumot yo'q</div>
+    {% endif %}
   </div>
 
   <div class="dash-card" style="--card-glow:rgba(100,210,255,0.07)">
     <div class="card-icon" style="background:rgba(100,210,255,0.12);color:#0a84ff">💵</div>
-    <div class="card-label">Daromad</div>
-    <div class="card-value">${{ revenue }}</div>
-    <div class="card-trend trend-neu">— o'zgarishsiz</div>
+    <div class="card-label">Jami daromad</div>
+    <div class="card-value">
+      {% if revenue %}${{ revenue|floatformat:0 }}{% else %}—{% endif %}
+    </div>
+    {% if revenue %}
+      <div class="card-trend trend-up">↑ Tasdiqlangan buyurtmalar</div>
+    {% else %}
+      <div class="card-trend trend-neu">— ma'lumot yo'q</div>
+    {% endif %}
   </div>
 
   <div class="dash-card" style="--card-glow:rgba(255,214,10,0.07)">
     <div class="card-icon" style="background:rgba(255,214,10,0.12);color:#c07800">⏳</div>
     <div class="card-label">Kutilmoqda</div>
-    <div class="card-value">—</div>
-    <div class="card-trend trend-down">↓ 3 ta yangi</div>
+    <div class="card-value">{{ pending_count|default:"—" }}</div>
+    {% if pending_count %}
+      <div class="card-trend trend-down">↓ {{ pending_count }} ta ko'rib chiqilmagan</div>
+    {% else %}
+      <div class="card-trend trend-neu">— kutilayotgan yo'q</div>
+    {% endif %}
   </div>
 
 </div>
 
-<!-- QUICK ACTIONS -->
+{# ── So'nggi buyurtmalar ── #}
 <div class="sec-hdr">
-  <span class="sec-title">Tezkor amallar</span>
+  <span class="sec-title">So'nggi buyurtmalar</span>
+  {# O'z buyurtmalar sahifasi URL'ingizga moslang #}
+  <a class="sec-link" href="{% url 'admin:index' %}">Hammasini ko'rish →</a>
 </div>
 
-<div class="quick-grid">
-  <a class="qa-btn" href="#">
-    <div class="qa-ico">➕</div>
-    <div>
-      <div class="qa-lbl">Foydalanuvchi qo'sh</div>
-      <div class="qa-sub">Yangi profil yaratish</div>
+<div class="orders-wrap">
+  <div class="orders-hdr">
+    <div class="orders-hdr-title">
+      <span class="orders-hdr-dot"></span>
+      <span>Buyurtmalar ro'yxati</span>
     </div>
-  </a>
-  <a class="qa-btn" href="#">
-    <div class="qa-ico" style="background:rgba(48,209,88,0.10);color:#28a745">📋</div>
-    <div>
-      <div class="qa-lbl">Buyurtmalar</div>
-      <div class="qa-sub">Barcha buyurtmalar</div>
-    </div>
-  </a>
-  <a class="qa-btn" href="#">
-    <div class="qa-ico" style="background:rgba(100,210,255,0.12);color:#0a84ff">📊</div>
-    <div>
-      <div class="qa-lbl">Hisobot</div>
-      <div class="qa-sub">Oylik statistika</div>
-    </div>
-  </a>
-  <a class="qa-btn" href="#">
-    <div class="qa-ico" style="background:rgba(255,214,10,0.12);color:#c07800">⚙️</div>
-    <div>
-      <div class="qa-lbl">Sozlamalar</div>
-      <div class="qa-sub">Tizim konfiguratsiyasi</div>
-    </div>
-  </a>
-</div>
-
-<!-- BOTTOM ROW -->
-<div class="sec-hdr">
-  <span class="sec-title">So'nggi faoliyat</span>
-  <a class="sec-link" href="#">Hammasini ko'r →</a>
-</div>
-
-<div class="grid-2">
-
-  <!-- Activity -->
-  <div class="feed">
-    <div class="feed-hdr">Yangilangan</div>
-    <div class="feed-item">
-      <div class="feed-dot" style="background:#0071e3"></div>
-      <div><div class="feed-text">Yangi foydalanuvchi ro'yxatdan o'tdi</div><div class="feed-time">2 daqiqa oldin</div></div>
-    </div>
-    <div class="feed-item">
-      <div class="feed-dot" style="background:#30d158"></div>
-      <div><div class="feed-text">Buyurtma #4821 tasdiqlandi</div><div class="feed-time">15 daqiqa oldin</div></div>
-    </div>
-    <div class="feed-item">
-      <div class="feed-dot" style="background:#ffd60a"></div>
-      <div><div class="feed-text">To'lov kutilmoqda — Order #4819</div><div class="feed-time">1 soat oldin</div></div>
-    </div>
-    <div class="feed-item">
-      <div class="feed-dot" style="background:#ff3b30"></div>
-      <div><div class="feed-text">Buyurtma #4810 bekor qilindi</div><div class="feed-time">3 soat oldin</div></div>
-    </div>
-    <div class="feed-item">
-      <div class="feed-dot" style="background:#64d2ff"></div>
-      <div><div class="feed-text">Tizim yangilanishi amalga oshirildi</div><div class="feed-time">Kecha, 23:15</div></div>
-    </div>
+    {% if recent_orders %}
+      <span class="orders-count-badge">{{ recent_orders|length }} ta</span>
+    {% endif %}
   </div>
 
-  <!-- Mini table -->
-  <div class="mini-table-wrap">
-    <div class="mini-table-hdr">So'nggi buyurtmalar</div>
-    <table>
+  {% if recent_orders %}
+  <div style="overflow-x:auto;">
+    <table class="orders-table">
       <thead>
         <tr>
-          <th>#</th>
-          <th>Mijoz</th>
-          <th>Holat</th>
-          <th>Summa</th>
+          <th class="col-id">#ID</th>
+          <th class="col-cust">Mijoz</th>
+          <th class="col-date">Sana</th>
+          <th class="col-stat">Holat</th>
+          <th class="col-pay">To'lov</th>
+          <th class="col-amt" style="text-align:right">Summa</th>
+          <th class="col-act"></th>
         </tr>
       </thead>
       <tbody>
+        {% for order in recent_orders %}
         <tr>
-          <td><span class="oid">#4821</span></td>
-          <td>Alisher T.</td>
-          <td><span class="badge b-green">Tasdiqlandi</span></td>
-          <td><span class="amt">$120</span></td>
+          {# ID + havola #}
+          <td class="col-id">
+            <a class="oid" href="{% url 'admin:index' %}">
+              #{{ order.id }}
+            </a>
+          </td>
+
+          {# Mijoz #}
+          <td class="col-cust">
+            <span class="customer-name">{{ order.customer_name|default:order.user }}</span>
+            {% if order.phone %}
+              <span class="customer-phone">{{ order.phone }}</span>
+            {% endif %}
+          </td>
+
+          {# Sana #}
+          <td class="col-date">
+            <span class="order-date">
+              {% if order.created_at %}
+                {{ order.created_at|date:"d.m.Y" }}<br>
+                <span style="font-size:11px;color:var(--ap-t3)">{{ order.created_at|time:"H:i" }}</span>
+              {% else %}—{% endif %}
+            </span>
+          </td>
+
+          {# Buyurtma holati #}
+          <td class="col-stat">
+            {% if order.status == 'confirmed' or order.status == 'completed' %}
+              <span class="badge b-green">✓ Tasdiqlandi</span>
+            {% elif order.status == 'delivering' or order.status == 'shipped' %}
+              <span class="badge b-cyan">🚚 Yetkazilmoqda</span>
+            {% elif order.status == 'pending' or order.status == 'new' %}
+              <span class="badge b-yellow">⏳ Kutilmoqda</span>
+            {% elif order.status == 'cancelled' or order.status == 'canceled' %}
+              <span class="badge b-red">✕ Bekor qilindi</span>
+            {% elif order.status == 'processing' %}
+              <span class="badge b-blue">⚙ Jarayonda</span>
+            {% else %}
+              <span class="badge b-gray">{{ order.status|default:"—" }}</span>
+            {% endif %}
+          </td>
+
+          {# To'lov holati #}
+          <td class="col-pay">
+            {% if order.payment_status == 'paid' %}
+              <span class="badge b-green">To'langan</span>
+            {% elif order.payment_status == 'pending' %}
+              <span class="badge b-yellow">Kutilmoqda</span>
+            {% elif order.payment_status == 'failed' %}
+              <span class="badge b-red">Rad etildi</span>
+            {% elif order.payment_status == 'refunded' %}
+              <span class="badge b-gray">Qaytarildi</span>
+            {% else %}
+              <span class="badge b-gray">{{ order.payment_status|default:"—" }}</span>
+            {% endif %}
+          </td>
+
+          {# Summa #}
+          <td class="col-amt" style="text-align:right">
+            {% if order.total %}
+              {% if order.status == 'cancelled' or order.status == 'canceled' %}
+                <span class="amt amt-neg">${{ order.total|floatformat:0 }}</span>
+              {% else %}
+                <span class="amt">${{ order.total|floatformat:0 }}</span>
+              {% endif %}
+            {% else %}
+              <span style="color:var(--ap-t3)">—</span>
+            {% endif %}
+          </td>
+
+          {# Amal #}
+          <td class="col-act">
+            <a class="act-btn" href="{% url 'admin:index' %}" title="Ko'rish">
+              →
+            </a>
+          </td>
         </tr>
-        <tr>
-          <td><span class="oid">#4820</span></td>
-          <td>Nodira K.</td>
-          <td><span class="badge b-blue">Yetkazilmoqda</span></td>
-          <td><span class="amt">$85</span></td>
-        </tr>
-        <tr>
-          <td><span class="oid">#4819</span></td>
-          <td>Jasur M.</td>
-          <td><span class="badge b-yellow">Kutilmoqda</span></td>
-          <td><span class="amt">$240</span></td>
-        </tr>
-        <tr>
-          <td><span class="oid">#4810</span></td>
-          <td>Dilnoza A.</td>
-          <td><span class="badge b-red">Bekor qilindi</span></td>
-          <td><span class="amt" style="color:var(--ap-t3)">$65</span></td>
-        </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>
 
+  {% else %}
+  {# ── Demo ma'lumotlar (recent_orders bo'sh bo'lganda) ── #}
+  <div style="overflow-x:auto;">
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th class="col-id">#ID</th>
+          <th class="col-cust">Mijoz</th>
+          <th class="col-date">Sana</th>
+          <th class="col-stat">Holat</th>
+          <th class="col-pay">To'lov</th>
+          <th class="col-amt" style="text-align:right">Summa</th>
+          <th class="col-act"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-id"><a class="oid" href="#">#4821</a></td>
+          <td class="col-cust">
+            <span class="customer-name">Alisher Toshmatov</span>
+            <span class="customer-phone">+998 90 123 45 67</span>
+          </td>
+          <td class="col-date"><span class="order-date">23.03.2026<br><span style="font-size:11px;color:var(--ap-t3)">14:32</span></span></td>
+          <td class="col-stat"><span class="badge b-green">✓ Tasdiqlandi</span></td>
+          <td class="col-pay"><span class="badge b-green">To'langan</span></td>
+          <td class="col-amt" style="text-align:right"><span class="amt">$120</span></td>
+          <td class="col-act"><a class="act-btn" href="#" title="Ko'rish">→</a></td>
+        </tr>
+        <tr>
+          <td class="col-id"><a class="oid" href="#">#4820</a></td>
+          <td class="col-cust">
+            <span class="customer-name">Nodira Karimova</span>
+            <span class="customer-phone">+998 91 234 56 78</span>
+          </td>
+          <td class="col-date"><span class="order-date">23.03.2026<br><span style="font-size:11px;color:var(--ap-t3)">11:15</span></span></td>
+          <td class="col-stat"><span class="badge b-cyan">🚚 Yetkazilmoqda</span></td>
+          <td class="col-pay"><span class="badge b-green">To'langan</span></td>
+          <td class="col-amt" style="text-align:right"><span class="amt">$85</span></td>
+          <td class="col-act"><a class="act-btn" href="#" title="Ko'rish">→</a></td>
+        </tr>
+        <tr>
+          <td class="col-id"><a class="oid" href="#">#4819</a></td>
+          <td class="col-cust">
+            <span class="customer-name">Jasur Mirzayev</span>
+            <span class="customer-phone">+998 93 345 67 89</span>
+          </td>
+          <td class="col-date"><span class="order-date">22.03.2026<br><span style="font-size:11px;color:var(--ap-t3)">18:47</span></span></td>
+          <td class="col-stat"><span class="badge b-yellow">⏳ Kutilmoqda</span></td>
+          <td class="col-pay"><span class="badge b-yellow">Kutilmoqda</span></td>
+          <td class="col-amt" style="text-align:right"><span class="amt">$240</span></td>
+          <td class="col-act"><a class="act-btn" href="#" title="Ko'rish">→</a></td>
+        </tr>
+        <tr>
+          <td class="col-id"><a class="oid" href="#">#4818</a></td>
+          <td class="col-cust">
+            <span class="customer-name">Dilnoza Azimova</span>
+            <span class="customer-phone">+998 94 456 78 90</span>
+          </td>
+          <td class="col-date"><span class="order-date">22.03.2026<br><span style="font-size:11px;color:var(--ap-t3)">09:30</span></span></td>
+          <td class="col-stat"><span class="badge b-blue">⚙ Jarayonda</span></td>
+          <td class="col-pay"><span class="badge b-yellow">Kutilmoqda</span></td>
+          <td class="col-amt" style="text-align:right"><span class="amt">$310</span></td>
+          <td class="col-act"><a class="act-btn" href="#" title="Ko'rish">→</a></td>
+        </tr>
+        <tr>
+          <td class="col-id"><a class="oid" href="#">#4815</a></td>
+          <td class="col-cust">
+            <span class="customer-name">Sardor Yusupov</span>
+            <span class="customer-phone">+998 99 567 89 01</span>
+          </td>
+          <td class="col-date"><span class="order-date">21.03.2026<br><span style="font-size:11px;color:var(--ap-t3)">16:20</span></span></td>
+          <td class="col-stat"><span class="badge b-red">✕ Bekor qilindi</span></td>
+          <td class="col-pay"><span class="badge b-gray">Qaytarildi</span></td>
+          <td class="col-amt" style="text-align:right"><span class="amt amt-neg">$65</span></td>
+          <td class="col-act"><a class="act-btn" href="#" title="Ko'rish">→</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
 </div>
+
 {% endblock %}
